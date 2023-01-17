@@ -56,14 +56,6 @@ def reconstruct(node):
 
 
 final_node=None
-# while True:
-# 	new_node=sample_closest(tree)
-# 	tree.append(new_node)
-# 	dist=((new_node.x-goal.x)**2 + (new_node.y-goal.y)**2)**0.5
-# 	if dist<50:
-# 		final_node=new_node
-# 		break
-
 reconstruct(final_node)
 
 
@@ -86,17 +78,15 @@ while running:
 	    tree.append(new_node)
 	    pygame.draw.circle(screen,(0,150,150),(new_node.x,new_node.y),3,width=0)
 	    dist=((new_node.x-goal.x)**2 + (new_node.y-goal.y)**2)**0.5
-	    if dist<20:
+	    if dist<30:
     		final_node=new_node
     		path_found=True
     else:
     	reconstruct(final_node)
+    	pygame.draw.line(screen,(255,255,255), (goal.x,goal.y), (final_node.x,final_node.y), width=1)
     	for p in path:
     		pygame.draw.circle(screen,(0,0,255),(p.x,p.y),4,width=0)
+    		pygame.draw.line(screen,(255,255,255), (p.x,p.y), ((p.parent.x,p.parent.y) if p.parent else (start.x,start.y)), width=1)
 
-    # for node in path:
-    # 	xi=node.x
-    # 	yi=node.y
-    # 	pygame.draw.circle(screen,(255,0,0),(xi,yi),5,width=0)
     pygame.display.update()
     clock.tick(10)
